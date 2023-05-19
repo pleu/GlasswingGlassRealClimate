@@ -1,0 +1,67 @@
+Ansys Lumerical 2021 R2.1 FDTD Solver Version 8.26.2779 (Windows 64bit)
+ expires (month/day/year): 8/2/2022
+using config file: Ansys Licensing set with ANSYSLMD_LICENSE_FILE
+license host: 1055@license.crc.pitt.edu
+current time: Thu Sep  9 17:14:40 2021
+Running on host: DESKTOP-A0D0RC9
+host available memory (GB): 5.726425
+All processes are communicating and ready to proceed to simulation...
+Running fsp file: S:\Lumerical\bin\fdtd-engine-msmpi.exe -t 1 -remote C:/Users/ssoor/Desktop/FDTD/Bare Glass/TM_new/BareGlassTM.fsp
+number of processors is 12
+processors are distributed as: 1x2x6
+Running 3D Simulation
+Split-field FDTD is activated with propagation along axis 3, center frequency is 3, n=1
+Starting meshing
+Simulation size in gridpoints: 42 x 22 x 28
+Completed meshing!
+Meshing complete in 0 seconds of CPU time
+0 0
+Starting meshing
+Simulation size in gridpoints: 42 x 22 x 28
+Completed meshing!
+Meshing complete in 0 seconds of CPU time
+0 0
+Starting meshing
+Simulation size in gridpoints: 42 x 22 x 28
+Completed meshing!
+Meshing complete in 0 seconds of CPU time
+0 0
+finished material properties
+Meshing Time: 0.0031106 seconds, Init Electrical Material Time: 0.0025742 seconds, Init Magnetic Material Time: 6.95e-05
+Using selected optimization level: 2
+Selecting 3d kernel for splitFieldDirection=3 and optLevel=2
+-----------------------------------------
+Beginning initialization of 3D Simulation
+Starting to add sources to simulation
+Adding 3D Gaussian source propagating in Z
+Reverted to narrowband source injection
+Using BFAST in the 3d sources! Injection direction: 1, index: 1
+Starting to add boundary conditions to simulation
+Adding 3D Periodic BC
+Adding 3D Periodic BC
+Adding 3D Parallel BC
+Adding 3D Parallel BC
+Adding 3D PML BC
+Adding 3D Parallel BC
+Starting to add monitors to Simulation
+Adding analysis monitor
+Adding 3D DFT monitor
+Adding 3D DFT monitor
+Finished initialization of 3D Simulation
+-----------------------------------------
+All processes are communicating and ready to proceed to simulation...
+Starting 10778966 total iterations
+0.000445312% complete. Max time remaining: 33 hrs, 57 mins, 23 secs. Auto Shutoff: 1
+0.258132% complete. Max time remaining: 32 hrs, 15 mins, 33 secs. Auto Shutoff: 1
+0.515819% complete. Max time remaining: 32 hrs, 12 mins, 35 secs. Auto Shutoff: 1
+0.774694% complete. Max time remaining: 32 hrs, 5 mins, 57 secs. Auto Shutoff: 1
+1.03238% complete. Max time remaining: 32 hrs, 2 mins, 9 secs. Auto Shutoff: 1
+1.28888% complete. Max time remaining: 31 hrs, 59 mins, 29 secs. Auto Shutoff: 0.0286784
+1.54182% complete. Max time remaining: 32 hrs, 51 secs. Auto Shutoff: 0.0118799
+1.7995% complete. Max time remaining: 31 hrs, 55 mins, 36 secs. Auto Shutoff: 0.00643181
+2.05482% complete. Max time remaining: 31 hrs, 52 mins, 13 secs. Auto Shutoff: 0.00329677
+2.31132% complete. Max time remaining: 31 hrs, 47 mins, 11 secs. Auto Shutoff: 0.00165129
+2.56663% complete. Max time remaining: 31 hrs, 43 mins, 27 secs. Auto Shutoff: 0.000872505
+2.82194% complete. Max time remaining: 31 hrs, 39 mins, 22 secs. Auto Shutoff: 0.000541381
+3.07488% complete. Max time remaining: 31 hrs, 36 mins, 24 secs. Auto Shutoff: 0.000374584
+3.33138% complete. Max time remaining: 31 hrs, 30 mins, 52 secs. Auto Shutoff: 0.000245447

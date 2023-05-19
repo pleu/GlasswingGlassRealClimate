@@ -1,0 +1,455 @@
+# InputVariables for Thin film Angular Dependence
+# 
+# Make sure to change working directory to where script files are located
+# Run InputVariables.lsf
+# Run AngledependenceThinFilm.lsf
+#
+# Copyright 2010-11, Baomin Wang, Paul W. Leu
+# LAMP, University of PIttsburgh
+
+clear;
+newproject;
+materialName = 'Glass';
+filenamePrefix = materialName + '';
+
+variableStringArray = 'Theta';
+variableUnitsArray = 'deg';
+filenameSuffix = '';
+
+
+
+#
+# Film structure
+#
+# all units are in meters
+#material = 'Si (Silicon) - Palik';
+material = 'SiO2 (Glass) - Palik';
+filmXSpan=500e-9;
+filmYSpan=500e-9*sqrt(3);
+filmThickness = 2000e-9;
+
+
+
+
+
+#aArray = [200]; #partial aArray for use running specific simulations
+#aArray = aArray*1e-9;
+#numA = length(aArray);
+#rArray = [20,40,60,80,100,120,140,160,180,200,220,240,260,280,300,350,400,450,500]; # full radius array
+#rArray = [20,40,60];
+#rArray = [20]; #bottom radius of cone
+#rArray = [70];
+#rArray = [150]; #bottom radius of cone
+#rArray = rArray*1e-9; #put array into nanometers
+#numR = length(rArray);
+
+
+#tArray = [80]; #Top radious of cone
+tArray = [0];
+tArray = tArray*1e-9; #put array into nanometers
+#numR = length(rArray);
+
+#lArray = [100,200,300];
+#lArray = [100]; # length of the taper
+#lArray = [800];
+#lArray = lArray*1e-9;
+#numL = length(lArray);
+
+
+#x_circle1=0; 
+#y_circle1=0; # center of circle1 on plane xy
+#z_circle1=-(filmThickness+lArray)/2;
+
+
+#Geometry
+#thickness = 't' + num2str(tArray/(1e-9));
+
+
+
+#
+#geometry of source and monitor
+# xspan of source and monitor is set to filmXSpan 
+#
+sourceOffset=200e-9;
+wavelengthStart=280e-9;
+wavelengthStop=1200e-9;
+injectionAxis = 'z-axis';
+injectionDirection = 'Forward';
+
+anglePhi=0;
+minTheta=0;
+maxTheta=86;
+thetaStep = 2;
+steepAngle = 45; # sets angle for steep BC
+
+simulationType = 'TM';  # 'TE' or 'TM'
+
+if (simulationType == 'TM') {
+  polarizationAngle=0;
+} else {
+  polarizationAngle = 90;
+}
+filenameSuffix = simulationType;
+
+
+thetaArray = minTheta:thetaStep:maxTheta;
+numTheta=length(thetaArray);
+
+
+#
+# Simulation cell
+#
+#FDTDxSpan=0.32*filmXSpan;   ### initialy it is 20e-9
+FDTDxSpan=0.3*filmXSpan;
+#FDTDySpan=0.2*filmYSpan;   ### initialy it is 20e-9
+FDTDySpan=0.3*filmYSpan;   ### initialy it is 20e-9
+simulationTime=1000e-15; # in seconds
+meshType = 'uniform'; # `auto non-uniform', 'custom non-uniform', or 'uniform'
+meshSize = 10e-9; 
+meshRefinement = 'staircase';
+meshAccuracy = 8; # for auto non-uniform mesh, a number from 1 (least accurate) to 8
+FDTDzSpace = 20e-9; # distance to edge of simulation cell from monitors
+minPmlLayers=12;
+maxPmlLayers=12;
+pmlReflection = 1e-07;
+
+
+# for monitor 
+numFrequencyPoints=500;
+reflectionMonitorOffset=20e-9;
+transmissionMonitorOffset=20e-9;
+
+frequencyStart = c/wavelengthStop;
+frequencyStop = c/wavelengthStart;
+
+#matlabsave("InputVariables");
+
+
+
+
+
+
+
+################## Simulation setup
+
+
+
+
+
+
+
+
+#
+# setup structure
+#
+
+#i = 1;
+#j = 1;
+#k = 1;
+
+# triple loop, loops l, a, then d.
+
+#for (k = 1:numL)  {
+ # j = 1;
+  #for (j = 1:numA)  {
+   # i = 1;
+    #parameterList = "d"+num2str(2*rArray(i)*1e9)+"a"+num2str(aArray(j)*1e9)+"length"+num2str(lArray(k)*1e9);
+   # parameterList = "a"+num2str(aArray(j)*1e9)+"l"+num2str(lArray(k)*1e9);
+    #file = filenamePrefix+parameterList+"Trans";
+    #out = fileexists(file); #check if first file in the set of diameters exists
+    #out = 0;
+    #if (out < 1)  {#only run if file does not exist
+    #define variables dependent on loop
+    #source_span = 3*aArray(j);
+    #FDTD_span = aArray(j);
+  
+    #switch to layout and clear structures
+    #switchtolayout;
+    #selectall;
+    #delete;
+
+    #}
+  #}
+#}
+
+
+
+switchtolayout;
+structures;
+selectall;
+deleteall;
+
+
+
+
+#addrect;
+#set("name", materialName);
+#setnamed(materialName,"x span",filmXSpan);
+#setnamed(materialName,"y span",filmYSpan);
+#setnamed(materialName,"x",0);
+#setnamed(materialName,"y",0);
+#setnamed(materialName,"z min",0); 
+#setnamed(materialName,"z max",filmThickness);
+#setnamed(materialName,"material",material);
+#setnamed(materialName,"z span",2*filmThickness);
+
+
+addrect;
+set("name", materialName);
+setnamed(materialName,"x",0);
+setnamed(materialName,"y",0);
+setnamed(materialName,"z",0);
+setnamed(materialName,"x span",filmXSpan);
+setnamed(materialName,"y span",filmXSpan);
+setnamed(materialName,"z span",filmThickness);
+setnamed(materialName,"material",material);
+
+
+
+
+
+
+# set up physical structures
+    #addobject("trunc_cone");
+   # setnamed("trunc_cone","name","circle1");
+   # setnamed("circle1","x",x_circle1);
+   # setnamed("circle1","y",y_circle1);
+   # setnamed("circle1","z",-(filmThickness+lArray(1))/2);
+   # setnamed("circle1","z span",lArray(1));
+   # setnamed("circle1","material","SiO2 (Glass) - Palik");
+    
+    
+#addrect;
+#set("name", "ArLayer");
+#setnamed("ArLayer","x",0);
+#setnamed("ArLayer","y",0);
+#setnamed("ArLayer","z",-(filmThickness+tArray(1))/2);
+#setnamed("ArLayer","x span",filmXSpan);
+#setnamed("ArLayer","y span",filmXSpan);
+#setnamed("ArLayer","z span",tArray(1));
+#setnamed("ArLayer","material","Ideal-AR");
+   
+      
+  
+        
+    
+#setup simulation
+#
+addfdtd;
+#set the geometry of simulation region
+setnamed("FDTD","x",0);
+setnamed("FDTD","x span",FDTDxSpan);
+setnamed("FDTD","y",0);
+setnamed("FDTD","y span",FDTDySpan);
+
+
+
+
+#addfdtd;
+#setnamed("FDTD","x",0);
+#setnamed("FDTD","y",0);
+
+
+#set the simulation time
+setnamed("FDTD","simulation time",simulationTime);
+setnamed("FDTD","z min",-(filmThickness)/2-max(tArray)-sourceOffset-reflectionMonitorOffset-FDTDzSpace);
+setnamed("FDTD", "z max", -filmThickness/4+ FDTDzSpace);
+
+#setnamed("FDTD", "z max", filmThickness/2+ FDTDzSpace);
+
+# "z span" is set to be 
+setnamed("FDTD", "mesh type", meshType);
+if (meshType == 'uniform') {
+  setnamed("FDTD", "dx", meshSize);
+  setnamed("FDTD", "dy", meshSize);
+  setnamed("FDTD", "dz", meshSize);
+}
+if (meshType == 'auto non-uniform') {
+  setnamed("FDTD","mesh accuracy",meshAccuracy);
+}
+setnamed("FDTD","mesh refinement",meshRefinement);
+#for normal angle incidence
+#set the bc of simulation
+#if (angleTheta == 0 & anglePhi == 0 & polarizationAngle == 0){
+
+#  setnamed("FDTD","x min bc","Anti-Symmetric");
+#  setnamed("FDTD","x max bc","Anti-Symmetric");
+#  setnamed("FDTD","y min bc","Symmetric");
+#  setnamed("FDTD","y max bc","Symmetric");
+#} else {
+setnamed("FDTD","allow symmetry on all boundaries", 1);
+#}
+
+setnamed("FDTD","z min bc","PML");
+setnamed("FDTD","z max bc","PML");
+setnamed("FDTD","pml min layers",minPmlLayers);
+setnamed("FDTD","pml max layers",maxPmlLayers);
+#setnamed("FDTD","pml reflection",pmlReflection);
+
+
+
+#
+#setup source
+# source placed at bottom,
+# so source and reflection monitor do not have to change every time
+addplane;
+setnamed("source","x",0);
+setnamed("source","x span",filmXSpan);
+setnamed("source","y",0);
+setnamed("source","y span",filmYSpan);
+setnamed("source","z", -(filmThickness)/2-max(tArray)-sourceOffset-reflectionMonitorOffset);
+setnamed("source","wavelength start",wavelengthStart);
+setnamed("source","wavelength stop",wavelengthStop);
+setnamed("source","injection axis",injectionAxis);
+setnamed("source","direction",injectionDirection);
+# setnamed("source1","angle theta",angleTheta);
+setnamed("source","angle phi",anglePhi);
+setnamed("source","polarization angle",polarizationAngle);
+setnamed("source","plane wave type","BFAST");
+
+
+#
+#setup monitors
+#
+addpower;
+set("name","reflection");
+setnamed("reflection","x",0);
+setnamed("reflection","x span",filmXSpan);
+setnamed("reflection","y",0);
+setnamed("reflection","y span",filmYSpan);
+setnamed("reflection","z", -(filmThickness)/2-max(tArray)-sourceOffset-2*reflectionMonitorOffset);
+
+addpower;
+set("name","transmission");
+setnamed("transmission","x",0);
+setnamed("transmission","x span",filmXSpan);
+setnamed("transmission","y",0);
+setnamed("transmission","y span",filmYSpan);
+#setnamed("transmission","z", transmissionMonitorOffset);
+setnamed("transmission","z",-filmThickness/4 - transmissionMonitorOffset);## original
+#
+
+
+
+
+
+
+ ##the diameter loop
+    #i = 1;
+    #for (i=1) {
+      ##top radius loop
+      ##if (rArray(i)<aArray(j)/2) {
+      ## set the radius of the nanowires
+      #switchtolayout;
+      #structures;  
+      #setnamed("circle1","r top",rArray(1));
+     
+   #for (m = 1) {
+      ##bottom diameter loop
+      #if (rArray(m)<= aArray(j)/2) {
+          #switchtolayout;
+          #structures; 
+         #setnamed("circle1","r bottom",rArray(1));
+      
+    
+      #}
+   #}
+    #}
+    
+    
+    
+    # The length loop    
+      #k = 1;
+    #for (k=1) {
+    
+      #switchtolayout;
+      #structures;  
+      
+      #setnamed("circle1","z span",lArray(1));
+    
+
+    #}
+
+
+
+
+
+
+
+
+
+# setup angle 
+# 
+
+wavelengthDisplayStart = wavelengthStart;
+
+frequencyStart = c/wavelengthStop;
+frequencyDisplayStop = c/wavelengthDisplayStart;
+
+frequencyStep = (frequencyDisplayStop-frequencyStart)/(numFrequencyPoints-1);
+
+setnamed("source","frequency start",frequencyStart);
+wavelengthStart=1/(2/wavelengthDisplayStart - 1/wavelengthStop);
+
+
+for (i=1:numTheta) {
+  switchtolayout;
+  angleTheta = thetaArray(i);
+  # TM 
+  if (polarizationAngle == 0) { 
+    setnamed("FDTD","x min bc","Anti-symmetric");
+    setnamed("FDTD","x max bc","Anti-symmetric");
+    setnamed("FDTD","y min bc","Symmetric");
+    setnamed("FDTD","y max bc","Symmetric");
+  }
+  # TE; BC will be overriden by BFAST when angleTheta
+  # ~=0 
+  if (polarizationAngle == 90) { 
+    setnamed("FDTD","x min bc","Symmetric");
+    setnamed("FDTD","x max bc","Symmetric");
+    setnamed("FDTD","y min bc","Anti-symmetric");
+    setnamed("FDTD","y max bc","Anti-symmetric");
+  }
+   
+
+  #save the project
+  filename = filenamePrefix +  variableStringArray + num2str(thetaArray(i)) + variableUnitsArray + filenameSuffix;
+  #save(filename);
+
+  #change the source angle
+  setnamed("source","angle theta",angleTheta);
+  if (thetaArray(i) >= steepAngle) {
+    setnamed("FDTD","pml profile",3);
+  }
+  #set the frequency points
+  monitors;
+
+  setglobalmonitor("frequency points",numFrequencyPoints);  ###to add more data points
+  #run simulation
+  ?thetaArray(i);
+  run;
+
+  #get data; use minimal formatting of data
+  frequencyTransmission = getdata("transmission","f");
+  wavelengthTransmission=c/frequencyTransmission*10^9;
+
+
+  transmissionData = 100*transmission("transmission");
+  dataTransmission = [wavelengthTransmission, transmissionData];
+  if (fileexists(filename+"Transmission.txt")) {
+    rm(filename+"Transmission.txt");
+  }
+  write(filename+"Transmission.txt",num2str(dataTransmission));
+  
+  frequencyReflection = getdata("reflection", "f");
+  wavelengthReflection=c/frequencyReflection*10^9;
+    
+  
+  reflectionData = -100*transmission("reflection");
+  dataReflection = [wavelengthReflection, reflectionData];
+  if (fileexists(filename+"Reflection.txt")) {
+    rm(filename+"Reflection.txt");
+  }
+  write(filename+"Reflection.txt",num2str(dataReflection));
+}
+
