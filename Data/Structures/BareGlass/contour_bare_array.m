@@ -111,29 +111,29 @@ legend boxoff;
 axis([0 80 0 20]);
 
 data = [thetaValues 90; id.ReflectionIntegrated];
-save('GlassReflectionIntegrated1100nm', 'data');
+save(['GlassReflectionIntegrated', num2str(maxWavelength), 'nm'], 'data');
 
 
-figure(5);
-clf;
-sraAvg = average_simulation_array(sra1, sra2);
-sraAvgMirror.contour('Wavelength', 'Theta', 'Reflection',200,0, 'polar');
-
-%sraAvgWithPhi = sraAvg.symmetry360; % this should be corrected 
-% varIndex = sraAvgWithPhi.VariableArray.get_variable_ind('Phi')
-% sraAvgWithPhi = sraAvgWithPhi.symmetry45(varIndex); % this should be corrected 
+% figure(5);
+% clf;
+% sraAvg = average_simulation_array(sra1, sra2);
+% sraAvgMirror.contour('Wavelength', 'Theta', 'Reflection',200,0, 'polar');
 % 
-%id2 = IntegratedData.create_array(ss, sraAvgWithPhi.Simulations);
-
-%material = MaterialType.create('Si')
-% [scArrayWithPhi] = SolarCellArray.create(ss,...
-%       sraAvgWithPhi.Simulations, sraAvgWithPhi.VariableArray, material);
-% scArrayWithPhi.contour_solarCellArray('Theta', 'Phi', 'Reflection', 200, 0,...
-%   'polar', 'RadialTickSpacing', [30 60 90], 'PolarDirection', '180', 'RadLabels', 4, ...
-%   'radlabelcolor', 'white');
-
-colorbar;
-caxis([0 10]);
+% %sraAvgWithPhi = sraAvg.symmetry360; % this should be corrected 
+% % varIndex = sraAvgWithPhi.VariableArray.get_variable_ind('Phi')
+% % sraAvgWithPhi = sraAvgWithPhi.symmetry45(varIndex); % this should be corrected 
+% % 
+% %id2 = IntegratedData.create_array(ss, sraAvgWithPhi.Simulations);
+% 
+% %material = MaterialType.create('Si')
+% % [scArrayWithPhi] = SolarCellArray.create(ss,...
+% %       sraAvgWithPhi.Simulations, sraAvgWithPhi.VariableArray, material);
+% % scArrayWithPhi.contour_solarCellArray('Theta', 'Phi', 'Reflection', 200, 0,...
+% %   'polar', 'RadialTickSpacing', [30 60 90], 'PolarDirection', '180', 'RadLabels', 4, ...
+% %   'radlabelcolor', 'white');
+% 
+% colorbar;
+% caxis([0 10]);
 
 
 

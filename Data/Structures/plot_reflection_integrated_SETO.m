@@ -5,13 +5,13 @@ clear;
 figure(4);
 clf;
 
-load('./BareGlass/GlassReflectionIntegrated.mat');
+load('./BareGlass/GlassReflectionIntegrated1100nm.mat');
 dataBare = data;
 %plot(dataBare(1,:), dataBare(2,:), 'Color', [0.4940 0.1840 0.5560], 'LineStyle', '-');
 plot(dataBare(1,:), dataBare(2,:), 'b-');
 
 hold on;
-load('./ThinFilm/ThinFilmReflectionIntegrated.mat');
+load('./ThinFilm/ThinFilmReflectionIntegrated1100nm.mat');
 dataTF = data;
 plot(dataTF(1,:), dataTF(2,:), 'g-.');
 
@@ -21,7 +21,7 @@ plot(dataTF(1,:), dataTF(2,:), 'g-.');
 % plot(dataNW(1,:), dataNW(2,:), 'g:');
 
 hold on;
-load('./Nanocone/NCReflectionIntegrated.mat');
+load('./Nanocone/NCReflectionIntegrated1100nm.mat');
 dataNC = data;
 plot(dataNC(1,:), dataNC(2,:), 'r--');
 
@@ -44,3 +44,9 @@ legend({'Bare Glass', 'Thin Film', 'Graded Index of Refraction'}, 'Location', 'N
 legend boxoff;
 
 axis([0 80 0 20]);
+
+
+degreesInterp = 0:5:90;
+reflectionData = [degreesInterp', interp1(dataBare(1,:), dataBare(2,:), degreesInterp)', interp1(dataTF(1,:), dataTF(2,:), degreesInterp)', interp1(dataNC(1,:), dataNC(2,:), degreesInterp)'];
+
+csvwrite('reflectionData.csv', reflectionData);

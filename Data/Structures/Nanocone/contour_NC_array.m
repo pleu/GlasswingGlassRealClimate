@@ -13,6 +13,7 @@ clear;
 
 thetaValues = 0:2:80;
 %thetaValues = 65;
+maxWavelength = 1100;
 phiValues = 0:5:45;
 
 variableValues = {thetaValues, phiValues};
@@ -41,7 +42,12 @@ sra2AvgPhi = sra2.average_simulation_array_over_variable('Phi');
 % sraAvgPhi = sraAvgPhi.mirror;
 
 ss = SolarSpectrum.direct_AM1p5;
-ss = ss.truncate_spectrum_wavelength(280, 1200);
+ss = SolarSpectrum.direct_AM1p5;
+ss = ss.truncate_spectrum_wavelength(280, maxWavelength);
+sra1.truncate_wavelength(280, maxWavelength);
+sra2.truncate_wavelength(280, maxWavelength);
+
+
 %idTE = IntegratedData(ss, sra1AvgPhi);
 %idTM = IntegratedData(ss, sra2AvgPhi);
 
@@ -98,7 +104,9 @@ xlabel('Theta (deg)');
 ylabel('R_{solar} (%)');
 
 data = [thetaValues 90; id.ReflectionIntegrated];
-save('NCReflectionIntegrated', 'data');
+save(['NCReflectionIntegrated', num2str(maxWavelength), 'nm'], 'data');
+%save(['GlassReflectionIntegrated', num2str(maxWavelength), 'nm'], 'data');
+
 
 
 figure(5);

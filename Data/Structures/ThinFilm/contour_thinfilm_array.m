@@ -12,6 +12,9 @@ clear;
 %load('InputVariables');
 %
 thetaValues = 0:2:80;
+maxWavelength = 1100;
+
+
 %phiValues = 0;
 
 variableValues = {thetaValues};
@@ -39,7 +42,9 @@ sra2 = sra2.add_simulation_at_theta_90;
 
 
 ss = SolarSpectrum.direct_AM1p5;
-ss = ss.truncate_spectrum_wavelength(280, 1200);
+ss = ss.truncate_spectrum_wavelength(280, maxWavelength);
+sra1.truncate_wavelength(280, maxWavelength);
+sra2.truncate_wavelength(280, maxWavelength);
 %idTE = IntegratedData(ss, sra1AvgPhi);
 %idTM = IntegratedData(ss, sra2AvgPhi);
 
@@ -93,7 +98,8 @@ ylabel('R_{solar} (%)');
 
 
 data = [thetaValues 90; id.ReflectionIntegrated];
-save('ThinFilmReflectionIntegrated', 'data');
+save(['ThinFilmReflectionIntegrated', num2str(maxWavelength), 'nm'], 'data');
+%save('ThinFilmReflectionIntegrated', 'data');
 
 figure(5);
 clf;
