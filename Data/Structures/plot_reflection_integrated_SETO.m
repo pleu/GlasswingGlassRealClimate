@@ -40,7 +40,7 @@ xlabel('Incidence Angle (deg)');
 ylabel('R_{solar} (%)');
 
 %legend({'Bare Glass', 'Thin Film', 'Nanowire Array', 'Nanocone Array'}, 'Location', 'NorthWest');
-legend({'Bare Glass', 'Thin Film', 'Graded Index of Refraction'}, 'Location', 'NorthWest');
+legend({'Bare Glass', 'Thin Film', 'GRIN'}, 'Location', 'NorthWest');
 legend boxoff;
 
 axis([0 80 0 20]);

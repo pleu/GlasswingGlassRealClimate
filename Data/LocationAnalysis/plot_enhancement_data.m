@@ -1,6 +1,6 @@
 clear;
 clf;
-load Chennai.csv
+load('Chennai/Chennai.csv');
 azimuth = [90 135 180 225 270]*2*pi/360;
 
 filmAR = Chennai(1,:);
@@ -26,5 +26,5 @@ xlabel('% Improvement');
 blueLine = findobj(gca,'Color',[0 0 1]);
 greenLine = findobj(gca,'Color',[0 1 0]);
 
-legend([greenLine, blueLine], 'Film', 'GRIN', 'Location', 'Best');
+legend([greenLine, blueLine], 'Thin Film', 'GRIN', 'Location', 'Best');
 legend boxoff;
