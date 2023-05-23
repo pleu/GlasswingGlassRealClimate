@@ -221,6 +221,7 @@ p.tickcolor         = 'black';    % default polar tick color
 p.ticklabelcolor    = 'black';    % default polar tick label color
 p.radlabelcolor     = 'black';    % default radial label color
 p.linecolor         = 'black';
+p.linestyle         = '-';
 %p.radlabelcolor     = 'white';    % default radial label color
 p.plotprops         = {};         % no additional plot properties
 p.xi = [];
@@ -500,7 +501,7 @@ Ci = p.colordata;                                    % colormap
 %-- Plot the line plot
 x = radius.*cos(theta);
 y = radius.*sin(theta);
-plot(x, y, 'color', p.linecolor)
+plot(x, y, 'color', p.linecolor, 'linestyle', p.linestyle)
 
 %-- Plot the surface
 % 
@@ -796,7 +797,7 @@ set(gca, 'YTick',[], 'YTickLabel', []);
 %set(gca,'Visible','off');
 set(gca, 'YColor','w');
 axis equal;
-xlim(xlim*1.2);
+%xlim(xlim*1.2);
 
 
 %-- Set axis font
