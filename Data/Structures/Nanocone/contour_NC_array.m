@@ -42,10 +42,10 @@ sra2AvgPhi = sra2.average_simulation_array_over_variable('Phi');
 % sraAvgPhi = sraAvgPhi.mirror;
 
 ss = SolarSpectrum.direct_AM1p5;
-ss = SolarSpectrum.direct_AM1p5;
 ss = ss.truncate_spectrum_wavelength(280, maxWavelength);
-sra1.truncate_wavelength(280, maxWavelength);
-sra2.truncate_wavelength(280, maxWavelength);
+sra1AvgPhi.Simulations.truncate_wavelength(280, maxWavelength);
+sra2AvgPhi.Simulations.truncate_wavelength(280, maxWavelength);
+
 
 
 %idTE = IntegratedData(ss, sra1AvgPhi);

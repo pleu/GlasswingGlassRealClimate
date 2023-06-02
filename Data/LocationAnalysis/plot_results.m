@@ -1,6 +1,6 @@
 clear;
 clf;
-directory = 'Chennai';
+directory = 'Chennai_Si';
 glass = readtable([directory, '/Glass.csv'], 'Delimiter', ';');
 if strcmp(directory, 'Pittsburgh')
   GRIN = readtable([directory, '/GRIN.csv'], 'Delimiter', ',');
@@ -15,7 +15,7 @@ clf;
 glass.Azimuth = glass.Azimuth + 180;
 GRIN.Azimuth = GRIN.Azimuth + 180;
 thinFilm.Azimuth = thinFilm.Azimuth + 180;
-contour_plot(glass.Tilt, glass.Azimuth, glass.EArray);
+contour_plot(glass.Tilt, glass.Azimuth, glass.EArray/100);
 colorbar;
 
 figure(2);
@@ -30,7 +30,7 @@ clf;
 contour_plot(GRIN.Tilt, GRIN.Azimuth, 100*(GRIN.EArray-glass.EArray)./glass.EArray);
 colorbar
 %caxis([3.5 9])
-%caxis([0 0.09])
+%caxis([6 8.2])
 
 
 uniqueAzimuth = unique(glass.Azimuth);
@@ -67,8 +67,8 @@ for i = 1:length(uniqueAzimuth)
 end
 
 azimuthRad = uniqueAzimuth*2*pi/360;
-radialrange = [0 10];
-radialtickspacing = 0:1:10;
+radialrange = [0 20];
+radialtickspacing = 0:2:20;
 
 figure(4);
 clf;
@@ -80,19 +80,19 @@ polarplot2d(azimuthRad, thinFilmEnhancement90, 'angularrange', [90 270]/360*2*pi
 % 
 % 
 hold on;
-polarplot2d(azimuthRad, GRINEnhancement, 'angularrange', [90 270]/360*2*pi, 'polardirection', 'cw', 'radlabels', 4, 'radlabellocation', {180 180}, 'radialrange', radialrange, 'radialtickspacing', radialtickspacing, 'linecolor', 'b');
+polarplot2d(azimuthRad, GRINEnhancement, 'angularrange', [90 270]/360*2*pi, 'polardirection', 'cw', 'radlabels', 4, 'radlabellocation', {180 180}, 'radialrange', radialrange, 'radialtickspacing', radialtickspacing, 'linecolor', 'r');
 hold on;
-polarplot2d(azimuthRad, GRINEnhancement0, 'angularrange', [90 270]/360*2*pi, 'polardirection', 'cw', 'radlabels', 4, 'radlabellocation', {180 180}, 'radialrange', radialrange, 'radialtickspacing', radialtickspacing, 'linecolor', 'b', 'linestyle', '--');
+polarplot2d(azimuthRad, GRINEnhancement0, 'angularrange', [90 270]/360*2*pi, 'polardirection', 'cw', 'radlabels', 4, 'radlabellocation', {180 180}, 'radialrange', radialrange, 'radialtickspacing', radialtickspacing, 'linecolor', 'r', 'linestyle', '--');
 hold on;
-polarplot2d(azimuthRad, GRINEnhancement90, 'angularrange', [90 270]/360*2*pi, 'polardirection', 'cw', 'radlabels', 4, 'radlabellocation', {180 180}, 'radialrange', radialrange, 'radialtickspacing', radialtickspacing, 'linecolor', 'b', 'linestyle', ':');
+polarplot2d(azimuthRad, GRINEnhancement90, 'angularrange', [90 270]/360*2*pi, 'polardirection', 'cw', 'radlabels', 4, 'radlabellocation', {180 180}, 'radialrange', radialrange, 'radialtickspacing', radialtickspacing, 'linecolor', 'r', 'linestyle', ':');
 
-set(gca, 'YLim', [-10.2 0])
-set(gca, 'XLim', [-10.2 10.2])
+set(gca, 'YLim', [-20.2 0])
+set(gca, 'XLim', [-20.2 20.2])
 
-blueLine = findobj(gca,'Color',[0 0 1]);
 greenLine = findobj(gca,'Color',[0 1 0]);
+redLine = findobj(gca,'Color',[1 0 0]);
 
-legend([greenLine(3), blueLine(3)], 'Thin Film', 'GRIN', 'Location', 'SouthEast');
+legend([greenLine(3), redLine(3)], 'Thin Film', 'GRIN', 'Location', 'Best');
 legend boxoff;
 
 % polarplot2d(uniqueAzimuth, GRINEnhancement, 'angularrange', [90 270]/360*2*pi, 'polardirection', 'cw', 'radlabels', 4, 'radlabellocation', {180 180}, 'radialrange', radialrange, 'radialtickspacing', radialtickspacing, 'linecolor', 'b');

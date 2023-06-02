@@ -50,3 +50,4 @@ degreesInterp = 0:5:90;
 reflectionData = [degreesInterp', interp1(dataBare(1,:), dataBare(2,:), degreesInterp)', interp1(dataTF(1,:), dataTF(2,:), degreesInterp)', interp1(dataNC(1,:), dataNC(2,:), degreesInterp)'];
 
 csvwrite('reflectionData.csv', reflectionData);
+set(gca, 'FontSize', 32)
