@@ -1,0 +1,180 @@
+
+\documentclass[12pt]{article}
+\input{MyPreamble}
+\usepackage{multirow}
+\usepackage{amsmath}
+\usepackage{fancyhdr}
+
+
+\usepackage[left=1in,top=1.0in,right=1in,headsep=0.25in,footskip=0.3in,bottom=0.7in]{geometry}
+%\usepackage[left=1in,top=1.2in,right=1in,footskip=0.3in,bottom=0.7in,showframe]{geometry}
+%\usepackage[left=1in,top=1in,right=1in,bottom=1in,nohead]{geometry}
+\usepackage{graphicx}
+\usepackage{gensymb}
+\renewcommand{\arraystretch}{1} % spacing between table rows
+\usepackage[]{caption}
+\setlength{\abovecaptionskip}{0pt}
+\setlength{\belowcaptionskip}{-5pt}
+\setlength{\intextsep}{10pt plus 2pt minus 2pt}
+\usepackage[normalem]{ulem}
+\newcounter{Labcounter}
+\newcounter{Taskcounter}
+\numberwithin{equation}{section}
+\fancyhf{}
+\pagestyle{fancy}
+\fancypagestyle{plain}{ %
+% \fancyhf{} % remove everything
+\renewcommand{\headrulewidth}{0pt} % remove lines as well
+%\renewcommand{\footrulewidth}{0pt}
+%\cfoot{Page \thepage~of \pageref{LastPage}}}
+\cfoot{\thepage}
+}
+\usepackage[numbered,framed]{matlab-prettifier}
+\lstMakeShortInline[style=Matlab-editor]"
+
+\def\code#1{\texttt{#1}}
+
+\newcommand{\blue}[1]{\textcolor{blue}{#1}} %for displaying red texts
+%\newcommand{\rood}[1]{} %for displaying red texts
+\newcommand{\red}[1]{\textcolor{red}{[#1]}} %for displaying red texts
+
+
+\lhead{\textit{Nanospheres...}}
+%\chead{\Large \textbf{Paul W.~Leu } \vspace{0.3em}}
+%\chead{\Large \textbf{NSF Biographical Sketch: Paul W.~Leu} \vspace{0.3em}}
+\rhead{\textit{Leu}}
+
+
+\newcommand{\vectornorm}[1]{\left|\left|#1\right|\right|}
+%\usepackage[top=2.5cm, bottom=2.5cm, left=2.5cm, right=2.5cm]{geometry}
+\usepackage[normalem]{ulem}
+\newenvironment{packed_enum}{
+\begin{enumerate}
+  \setlength{\topsep}{0pt}
+  \setlength{\partopsep}{0pt}
+  \setlength{\itemsep}{1pt}
+  \setlength{\parskip}{0pt}
+  \setlength{\parsep}{0pt}
+}{\end{enumerate}}
+
+%\usepackage[small]{caption}
+\usepackage[draft]{pdfcomment}
+\usepackage{wrapfig}
+\usepackage{hyperref}
+\usepackage{paralist}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsfonts}
+\usepackage{textcomp}
+%\usepackage{subfig}
+\usepackage{subcaption}
+\usepackage{framed}
+\usepackage{setspace}
+\usepackage{here}
+\usepackage[numbers, square, comma, sort&compress]{natbib}
+
+\usepackage[compact]{titlesec}
+\titlespacing{\section}{0pt}{0ex}{0pt}
+\titlespacing{\subsection}{0pt}{0pt}{0pt}
+\usepackage{xcolor}
+
+\usepackage[]{caption}
+\setlength{\abovecaptionskip}{0pt}
+\setlength{\belowcaptionskip}{-5pt}
+\setlength{\intextsep}{10pt plus 2pt minus 2pt}
+
+
+\usepackage{float}
+\floatstyle{plaintop}
+\newfloat{program}{thp}{lop}
+\floatname{program}{Table}
+
+\newfloat{wrapprogram}{thp}{lop}
+\floatname{wrapprogram}{Table}
+
+%\setlength{\intextsep}{10pt plus 2pt minus 2pt}
+% bold face: highlight keywords, or big ideas
+% italics: inconspicuous stressing of key points
+% underline: hypothesis; avoid
+
+\usepackage{bm}
+
+\date{\today }
+
+\author{
+Paul W. Leu\\
+University of Pittsburgh\\
+Pittsburgh, PA}
+
+
+%\def\myTitle{CAREER: Transforming Solar Energy Harvesting through Nanophotonic Light Trapping}
+%\def\myTitle{CAREER: Characterizing Enhanced Absorption and Carrier Collection Mechanisms in Silicon and Zinc Oxide Nanocone-based Solar Cells}
+%Upper bound
+%   100 hours/year
+%    40 hours
+%    
+%\title{Ultimate Limits of Silicon Nanostructures for Photon Management\\
+%\title{Determining Silicon/Metal Nanostructures that Approach the Wave-Optics Light Trapping Limit by Data Mining of Electrodynamic Simulations}
+%\title{CAREER: Characterizing Enhanced Absorption and Carrier Collection Mechanisms in Silicon and Zinc Oxide Nanocone-based Solar Cells}
+%\title{Predicting Wave-Optics Light Trapping in Silicon and Metal Nanostructure by Data Mining of Electrodynamic Simulations}
+%Keywords: ultra thin, light trapping, wave-optics light trapping, coherent light trapping, optimization framework, data mining}
+
+
+\graphicspath{{../Paper/}{../Figures/}{Figures/}}
+
+%\title{Modeling and Manufacturing of Three Dimensional Silicon Nanostructures for Photon Management}
+
+\begin{document}
+
+\tableofcontents
+
+\section{Simulations}
+
+We are using PVSyst for simulations.  
+The information on IAM loss can be found here \url{https://www.pvsyst.com/help/iam_loss.htm}.  
+
+For normal incidence, the reflection is of the order of 5\% and is included in the measured STC performance.  
+The standard test condition performance is 1000 W/m$^2$ and is 1000 W/m$^2$, 25 $\degree$C, and AM 1.5.  
+
+%The full year simulation may be studied in detail using the ``detailed study" button in the ``detailed losses" dialog.  
+
+For normal glass, the Fresnel model uses 
+
+Ashrae parameterization uses the following formula
+\begin{equation}
+F_{IAM}  =  1  -  b_o \left (\frac{1}{\cos \theta_i} - 1 \right )
+\end{equation}
+where $b_0 = 0.1$.  
+
+Typical IAM loss is between 3 to 4\%.  
+% https://aurorasolar.com/blog/understanding-pv-system-losses-part-4-tilt-orientation-incident-angle-modifier-environmental-conditions-and-inverter-losses-clipping/
+
+According to \url{https://pvpmc.sandia.gov/modeling-steps/1-weather-design-inputs/shading-soiling-and-reflection-losses/incident-angle-reflection-losses/}, 
+the $IAM$ or angle of incidence modifier for beam component of incident irradiance is defined as  
+\begin{align}
+IAM_B &= \frac{T(\theta)}{T(0)} \\
+&= \frac{1 - R(\theta) - A(\theta)}{1 - R(0) - A(0)} \\
+&= \frac{1 - R(\theta)}{1 - R(0)} 
+\end{align}
+
+
+\begin{enumerate}
+\item Do the simulations with $IAM_B = \frac{1 - R(\theta)}{1 - R(0)}$.  
+\item Renormalize all numbers upward by factor so that normal glass is so with $IAM = 0$ at normal incidence.  
+\item Check enhancements.  
+\end{enumerate}
+
+Karinna is using
+\begin{equation}
+IAM_B = 1 - R(\theta)
+\end{equation}
+Get data.  We can divide by $1 - R_{glass} (0)$.  
+% about 3.5 % reflection for nanocone at 40 degrees latitude
+% about 13% reflection for bare glass at 40 degrees latitude
+
+\bibliographystyle{IEEEtran}
+\bibliography{AllRefs}
+
+
+\end{document}
+I
