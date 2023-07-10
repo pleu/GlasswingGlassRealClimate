@@ -14,13 +14,17 @@ Z = reshape(zValues', length(xUnique), length(yUnique))';
 % set(h, 'edgecolor', 'none');
 
 polarplot3d(Z', 'plottype','contourf','ContourLines', numContourLines, 'angularrange', deg2rad([yUnique(1) yUnique(end)]), 'radialrange', [0 90],...
- 'ColorData', Z', 'interpmethod', 'nearest', 'polargrid',{8 18}, 'polardirection', 'cw', 'tickspacing', 45, 'radialtickspacing', [30, 60]);
-set(gca, 'XAxisLocation','top',...
-  'yaxislocation', 'left');
-set(gca, 'XTick', [-90 -60 -30 0 30 60 90])
-set(gca, 'XTickLabel', {'', '', '', '0', '30', '60', '90'})
+ 'ColorData', Z', 'radlabels', 7, 'compass', 'yes', 'radlabellocation', {180 180}, 'radlabelcolor', 'k', 'gridcolor', 'k', 'interpmethod', 'nearest', 'polargrid',{8 16}, 'polardirection', 'cw', 'tickspacing', 45, 'radialtickspacing', [15, 30, 45, 60, 75]);
+%set(gca, 'XAxisLocation','top',...
+%  'yaxislocation', 'left');
+%set(gca,'XTick',[])
+h = gca; h.XAxis.Visible = 'off'; h.YAxis.Visible = 'off';
+%set(gca, 'XTick', [-90 -60 -30 0 30 60 90])
+%set(gca, 'XTickLabel', {'', '', '', '0', '30', '60', '90'})
 ax = get(gca);
 ax.XAxis.MinorTickValues = -90:10:90;
+set(gca, 'XLim', [-110 110]);
+
 %set(gca, 'XAxis.MinorTickValues', -90:10:90);
 %ax.XAxis.MinorTickValues
 

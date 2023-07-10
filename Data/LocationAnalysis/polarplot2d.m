@@ -222,6 +222,7 @@ p.ticklabelcolor    = 'black';    % default polar tick label color
 p.radlabelcolor     = 'black';    % default radial label color
 p.linecolor         = 'black';
 p.linestyle         = '-';
+p.compass           = 'no';
 %p.radlabelcolor     = 'white';    % default radial label color
 p.plotprops         = {};         % no additional plot properties
 p.xi = [];
@@ -635,9 +636,18 @@ if ~isequal(p.axislocation,'off')
       % Add tick labels
       %for k = 2 * (1:nl-1)
       zt = ones(2*nl+1, 1);
-      for k = 1:length(ta)
-         text(xt(3,k),yt(3,k),zt(k),num2str(ta(k)*180/pi),...
-           'HorizontalAlignment','Center',fontargs{:},'Color',p.ticklabelcolor);
+      if isequal(p.compass, 'yes')
+        tr = {'N', 'NE', 'E', 'SE', 'S', 'SW', 'W', 'NW'};
+        for k = 1:length(tr)
+          text(xt(3,k),yt(3,k),zt(k),tr(k),...
+            'HorizontalAlignment','Center',fontargs{:},'Color',p.ticklabelcolor);
+        end
+        hold off;
+      else
+        for k = 1:length(ta)
+          text(xt(3,k),yt(3,k),zt(k),num2str(ta(k)*180/pi),...
+            'HorizontalAlignment','Center',fontargs{:},'Color',p.ticklabelcolor);
+        end
       end
 %       for k = 2 * (0:nl-1)+1
 %          text(xt(3,k),yt(3,k),zt(k),num2str(ta(k)*180/pi),...
@@ -671,7 +681,7 @@ if p.radlabels > 0 && ~isequal(p.radlabellocation,'off')
    ta = azimuth_radax*pi/180;
    %tr = linspace(Rmin,Rmax,p.radlabels);
    %tr = linspace(Rmin,Rmax,p.radlabels+2);
-   tr = [0 2 4 6 8 10];
+   tr = [0 2 4 6 8 10 12 14 16 18 20];
    tr(1) = []; tr(end) = [];                     % delete inner,outer labels
    xt = tr * cos(ta) + p.cartorigin(1);
    yt = tr * sin(ta) + p.cartorigin(2);
@@ -797,6 +807,8 @@ set(gca, 'YTick',[], 'YTickLabel', []);
 %set(gca,'Visible','off');
 set(gca, 'YColor','w');
 axis equal;
+h = gca; h.XAxis.Visible = 'off'; h.YAxis.Visible = 'off';
+
 %xlim(xlim*1.2);
 
 
